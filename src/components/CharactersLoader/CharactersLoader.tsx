@@ -22,7 +22,7 @@ const CharacterLoader: FC = () => {
     if (characters.length === 0) {
       handleRefresh()
     }
-  }, [characters, handleRefresh])
+  }, [characters])
 
   return (
     <div className={styles.loader}>
