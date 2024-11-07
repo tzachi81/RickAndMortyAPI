@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import { ReactComponent as Logo } from './logo.svg'
 import './app.css'
-import CharacterLoader from './components/CharacterLoader/CharacterLoader'
+import CharactersLoader from './components/CharactersLoader/CharactersLoader'
 import { CharacterProvider } from './Context/CharacterContext'
 import CharacterTable from './components/CharacterTable/CharacterTable'
+import Header from './components/Header/Header'
 
 export function App () {
   return (
     <CharacterProvider>
-      <div>
-        <h1>Rick and Morty Character Loader</h1>
-        <CharacterLoader />
+      <div className='App'>
+        <Header />
+        <CharactersLoader />
         <CharacterTable />
       </div>
     </CharacterProvider>

@@ -1,0 +1,62 @@
+.tableContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    display: flex;
+    background-color: #e762D7ff;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+
+}
+
+.tableRow {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    height: 80px;
+    flex: 1;
+
+    &:last-child {
+        border-bottom: none; //to remove the border of the last row
+    }
+}
+
+.imageCell {
+    align-content: center;
+}
+
+.image {
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    flex-grow: 1;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
+.cell {
+    display: flex;
+    align-items: center; // Center vertically
+    padding: 7px;
+}
+
+.titleCell {
+    @extend .cell;
+    width: 200px;
+    flex: none;
+    font-weight: bold;
+    padding: 7px;
+    border-right: 1px solid #ccc;
+}
+
+.detailCell {
+    @extend .cell;
+    flex-grow: 2;
+    justify-content: flex-start; // Align items to the start
+}

@@ -1,48 +1,80 @@
-import React from 'react'
-import { useCharacterContext } from '../../Context/CharacterContext'
+
+import React, { useMemo } from 'react';
+
+import styles from './characterTable.module.scss';
+
+import { useCharacterContext } from '../../Context/CharacterContext';
+
+
+type ILeastPopularCharacter = {
+  [key: string]: string;
+}
 
 const CharacterTable: React.FC = () => {
-  const { characters } = useCharacterContext()
+
+  const { characters, findLeastPopularCharacter } = useCharacterContext();
+
+  const leastPopularCharacter = useMemo((): ILeastPopularCharacter | undefined => {
+
+    if (characters.length > 0) {
+
+      const data = findLeastPopularCharacter(characters);
+
+      if (data){
+
+        const { name, status, species, gender, origin, location, image, episode } = data;
+        
+        const originAndDimension = `${location.name} - ${origin.name}`;
+        const popularity = String(episode.length);
+        
+        return { name, status, species, gender, originAndDimension, image, popularity };
+      }
+    }
+
+  }, [characters, findLeastPopularCharacter]);
+
+  const displayOrder = ['name', 'originAndDimension', 'status', 'species', 'gender', 'popularity'];
+
+  const formatTitle = (key: string) => key.replace(/([A-Z])/g, ' $1')
+    .trim()
+    .replace(/^./, (char) => char.toUpperCase());
+
 
   if (characters.length === 0) {
     return <p>No character data available. Try to refresh the page.</p>
   }
 
   return (
-    <div>
-      <h2>Character Data Table</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>STATUS</th>
-            <th>SPECIES</th>
-            <th>TYPE</th>
-            <th>GENDER</th>
-            <th>ORIGIN</th>
-            <th>LOCATION</th>
-            <th>Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {characters.map((character) => (
-            <tr key={character.id}>
-              <td>{character.id}</td>
-              <td>{character.name}</td>
-              <td>{character.status}</td>
-              <td>{character.species}</td>
-              <td>{character.type}</td>
-              <td>{character.gender}</td>
-              <td>{character.origin.name}</td>
-              <td>{character.location.name}</td>
-              <td>
-                <img src={character.image} alt={character.name} style={{ width: '50px', height: 'auto' }} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className={styles.tableContainer}>
+      {
+        leastPopularCharacter &&
+        <div className={styles.table}>
+
+          <div className={styles.tableImage}>
+            <img
+            className={styles.image}
+              src={leastPopularCharacter.image}
+              alt={leastPopularCharacter.name}
+            />
+          </div>
+
+          <div className={styles.detailsContainer}>
+            {displayOrder.map((key, index) => (
+              <div
+                key={index}
+                className={styles.tableRow}>
+                <div className={styles.titleCell}>
+                  {formatTitle(key)}
+
+                </div>
+                <div className={styles.detailCell}>
+                  {leastPopularCharacter[key]}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      }
     </div>
   )
 }

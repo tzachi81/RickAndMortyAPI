@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import styles from './characterLoader.module.scss';
+
 import { useCharacterContext } from '../../Context/CharacterContext'
 
 // This logical component handles the fetching data from RickAndMorty API
@@ -23,25 +25,14 @@ const CharacterLoader: React.FC = () => {
   }, [characters])
 
   return (
-    <div>
+    <div className={styles.loader}>
       {isLoading
-        ? (<p>Refreshing...</p>)
+        ? (<p>Gettind Data...</p>)
         : (
-          <div>
+          <div >
+            <h2>Found {characters.length} characters</h2>
             {/* Make it read from disk cache */}
-            <button onClick={handleRefresh}>Refresh Data</button>
-            {/* <ul>
-            {characters.length > 0 ? (
-              characters.map((character) => (
-                <li key={character.id}>
-                  <h3>{character.name}</h3>
-                  <img width= {'50px'} src={character.image} alt={character.name} />
-                </li>
-              ))
-            ) : (
-              <p>No characters available.</p>
-            )}
-          </ul> */}
+            <button className={styles.refreshButton} onClick={handleRefresh}>Refresh Data</button>
           </div>
           )}
     </div>
