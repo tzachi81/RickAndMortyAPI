@@ -1,4 +1,4 @@
-import { ICharacter } from './CharacterContextData.types';
+import { ICharacter } from './CharacterContextData.types'
 
 interface ICharactersResponseInfo {
     count: number,
