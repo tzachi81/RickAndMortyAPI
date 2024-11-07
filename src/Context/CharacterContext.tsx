@@ -1,14 +1,13 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { FC, createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { ICharacterContextType, ICharacter } from './CharacterContextData.types'
 import { ICharactersResponse } from './CharacterContextNetwork.types'
 
 const CharacterContext = createContext<ICharacterContextType | undefined>(undefined)
 
-export const CharacterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [characters, setCharacters] = useState<ICharacter[]>([]);
+export const CharacterProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [characters, setCharacters] = useState<ICharacter[]>([])
 
   const fetchCharacters = async () => {
-
     const url = 'https://rickandmortyapi.com/api/character'
 
     let nextCharacters: string | any[] = []
@@ -34,35 +33,30 @@ export const CharacterProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       console.error('Fetch error:', err)
     }
   }
-  
 
   const findLeastPopularCharacter = useCallback(() => {
+    if (characters.length > 0) {
+      const locationName = 'Earth (C-137)'
 
-    if (characters.length > 0){
-
-      const locationName = "Earth (C-137)";
-      
-      //According to the schema, .location is the character's last known location endpoint.
+      // According to the schema, .location is the character's last known location endpoint.
       const leastPopularCharacters = characters
-      .filter(character => character.location.name === locationName && character.episode.length === 1);
-      
-      
-      //Sort the least characters A-Z
+        .filter(character => character.location.name === locationName && character.episode.length === 1)
+
+      // Sort the least characters A-Z
       const sortedLeastPopularCharactersByName = leastPopularCharacters.sort((a, b) => {
-        return a.name.localeCompare(b.name);
-      });
-      
-      const lastCharacterInTheList = sortedLeastPopularCharactersByName.at(-1);
-      
-      return lastCharacterInTheList;
+        return a.name.localeCompare(b.name)
+      })
+
+      const lastCharacterInTheList = sortedLeastPopularCharactersByName.at(-1)
+
+      return lastCharacterInTheList
     }
   }, [characters])
 
-
   useEffect(() => {
     // When the provider mounts do:
-    fetchCharacters();
-  }, []);
+    fetchCharacters()
+  }, [])
 
   return (
     <CharacterContext.Provider

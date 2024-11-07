@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styles from './characterLoader.module.scss';
+import { FC, useState, useEffect } from 'react'
+import styles from './characterLoader.module.scss'
 
 import { useCharacterContext } from '../../Context/CharacterContext'
 
@@ -8,7 +8,7 @@ import { useCharacterContext } from '../../Context/CharacterContext'
 
 // I kept the commented list element for testing purposes
 
-const CharacterLoader: React.FC = () => {
+const CharacterLoader: FC = () => {
   const { characters, fetchCharacters } = useCharacterContext()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -22,14 +22,14 @@ const CharacterLoader: React.FC = () => {
     if (characters.length === 0) {
       handleRefresh()
     }
-  }, [characters])
+  }, [characters, handleRefresh])
 
   return (
     <div className={styles.loader}>
       {isLoading
         ? (<p>Gettind Data...</p>)
         : (
-          <div >
+          <div>
             <h2>Found {characters.length} characters</h2>
             {/* Make it read from disk cache */}
             <button className={styles.refreshButton} onClick={handleRefresh}>Refresh Data</button>
