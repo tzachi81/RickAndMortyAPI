@@ -1,20 +1,20 @@
-
 import { FC, useMemo } from 'react'
-
 import styles from './characterTable.module.scss'
-
-import { useCharacterContext } from '../../Context/CharacterContext'
+import { ICharacter } from '@/Context/CharacterContextData.types'
 
 type ILeastPopularCharacter = {
-  [key: string]: string;
+  [key: string]: string
 }
 
-const CharacterTable: FC = () => {
-  const { characters, findLeastPopularCharacter } = useCharacterContext()
+interface CharacterTableProps {
+  characters: ICharacter[],
+  findLeastPopularCharacter: () => ICharacter | undefined
+}
 
+const CharacterTable: FC<CharacterTableProps> = ({ characters, findLeastPopularCharacter }) => {
   const leastPopularCharacter = useMemo((): ILeastPopularCharacter | undefined => {
     if (characters.length > 0) {
-      const data = findLeastPopularCharacter(characters)
+      const data = findLeastPopularCharacter()
 
       if (data) {
         const { name, status, species, gender, origin, location, image, episode } = data
@@ -39,10 +39,10 @@ const CharacterTable: FC = () => {
 
   return (
     <div className={styles.tableContainer}>
+      <h2>The least popular character</h2>
       {
-        leastPopularCharacter &&
+        leastPopularCharacter && (
           <div className={styles.table}>
-
             <div className={styles.tableImage}>
               <img
                 className={styles.image}
@@ -68,6 +68,7 @@ const CharacterTable: FC = () => {
               ))}
             </div>
           </div>
+        )
       }
     </div>
   )

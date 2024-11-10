@@ -21,5 +21,5 @@ export interface ICharacter {
 export interface ICharacterContextType {
     characters: ICharacter[];
     fetchCharacters: () => Promise<void>;
-    findLeastPopularCharacter: (characters: ICharacter[]) => ICharacter | undefined;
+    findLeastPopularCharacter: () => ICharacter | undefined;
 }

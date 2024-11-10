@@ -1,0 +1,19 @@
+.appContent {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  overflow-y: auto;
+  background-image: url("./assets/background/rm-background2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: center;
+}

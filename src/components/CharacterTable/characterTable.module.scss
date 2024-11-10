@@ -1,54 +1,57 @@
 .tableContainer {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .table {
+    justify-content: center;
+    justify-self: center;
+    margin: 0 auto 0px auto;
     display: flex;
-    background-color: #e762D7ff;
+    background-color: rgba(231, 98, 215, 0.7);
     border: 2px solid #ccc;
     border-radius: 5px;
-
+    border-collapse: collapse;
 }
 
 .tableRow {
     display: flex;
-    border-bottom: 2px solid #ccc;
-    height: 80px;
+    border-bottom: 1px solid #ccc;
     flex: 1;
 
     &:last-child {
-        border-bottom: none; //to remove the border of the last row
+        border-bottom: none;
     }
 }
 
 .imageCell {
     align-content: center;
+    width: 50px;
+    height: 50px;
 }
 
 .image {
-    border-radius: 5px 0 0 5px;
     display: flex;
-    flex-grow: 1;
+    border-radius: 5px 0 0 5px;
+    border-right: 2px solid #ccc;
 }
 
 .detailsContainer {
     display: flex;
     flex-direction: column;
     flex: 1;
-    width: 100%;
 }
 
 .cell {
     display: flex;
-    align-items: center; // Center vertically
+    align-items: center;
     padding: 7px;
 }
 
 .titleCell {
     @extend .cell;
-    width: 200px;
+    width: 200px; // Fixed with of the title cells
     flex: none;
     font-weight: bold;
     padding: 7px;
@@ -57,6 +60,5 @@
 
 .detailCell {
     @extend .cell;
-    flex-grow: 2;
-    justify-content: flex-start; // Align items to the start
+    width: 300px;
 }
