@@ -1,5 +1,5 @@
-import { FC, createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { ICharacterContextType, ICharacter } from './CharacterContextData.types'
+import { FC, createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react'
+import { ICharacterContextType, ICharacter, ILeastPopularCharacter } from './CharacterContextData.types'
 import { ICharactersResponse } from './CharacterContextNetwork.types'
 
 const CharacterContext = createContext<ICharacterContextType | undefined>(undefined)
@@ -57,6 +57,21 @@ export const CharacterProvider: FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [characters])
 
+  const getLeastPopularCharacter = useCallback((): ILeastPopularCharacter | undefined => {
+    if (characters.length > 0) {
+      const data = findLeastPopularCharacter()
+
+      if (data) {
+        const { name, status, species, gender, origin, location, image, episode } = data
+
+        const originAndDimension = `${location.name} - ${origin.name}`
+        const popularity = String(episode.length)
+
+        return { name, status, species, gender, originAndDimension, image, popularity }
+      }
+    }
+  }, [characters, findLeastPopularCharacter])
+
   useEffect(() => {
     // When the provider mounts, fetch
     fetchCharacters()
@@ -64,7 +79,7 @@ export const CharacterProvider: FC<{ children: React.ReactNode }> = ({ children 
 
   return (
     <CharacterContext.Provider
-      value={{ characters, fetchCharacters, findLeastPopularCharacter }}
+      value={{ characters, fetchCharacters, findLeastPopularCharacter, getLeastPopularCharacter }}
     >
       {children}
     </CharacterContext.Provider>

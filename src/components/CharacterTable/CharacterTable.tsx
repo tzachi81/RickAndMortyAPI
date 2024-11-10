@@ -8,24 +8,28 @@ type ILeastPopularCharacter = {
 
 interface CharacterTableProps {
   characters: ICharacter[],
-  findLeastPopularCharacter: () => ICharacter | undefined
+  getLeastPopularCharacter: () => ILeastPopularCharacter | undefined
 }
 
-const CharacterTable: FC<CharacterTableProps> = ({ characters, findLeastPopularCharacter }) => {
-  const leastPopularCharacter = useMemo((): ILeastPopularCharacter | undefined => {
-    if (characters.length > 0) {
-      const data = findLeastPopularCharacter()
+const CharacterTable: FC<CharacterTableProps> = ({ characters, getLeastPopularCharacter }) => {
+  /**
+   *  I moved the main business  logic of this component to the context file
+   * */
 
-      if (data) {
-        const { name, status, species, gender, origin, location, image, episode } = data
+  // const leastPopularCharacter = useMemo((): ILeastPopularCharacter | undefined => {
+  //   if (characters.length > 0) {
+  //     const data = findLeastPopularCharacter()
 
-        const originAndDimension = `${location.name} - ${origin.name}`
-        const popularity = String(episode.length)
+  //     if (data) {
+  //       const { name, status, species, gender, origin, location, image, episode } = data
 
-        return { name, status, species, gender, originAndDimension, image, popularity }
-      }
-    }
-  }, [characters, findLeastPopularCharacter])
+  //       const originAndDimension = `${location.name} - ${origin.name}`
+  //       const popularity = String(episode.length)
+
+  //       return { name, status, species, gender, originAndDimension, image, popularity }
+  //     }
+  //   }
+  // }, [characters, findLeastPopularCharacter])
 
   const displayOrder = ['name', 'originAndDimension', 'status', 'species', 'gender', 'popularity']
 
@@ -36,6 +40,12 @@ const CharacterTable: FC<CharacterTableProps> = ({ characters, findLeastPopularC
   if (characters.length === 0) {
     return <p>No character data available. Try to refresh the page.</p>
   }
+
+  const leastPopularCharacter = useMemo(() => {
+    if (characters.length > 0) {
+      return getLeastPopularCharacter()
+    }
+  }, [characters, getLeastPopularCharacter])
 
   return (
     <div className={styles.tableContainer}>

@@ -18,8 +18,12 @@ export interface ICharacter {
     created: string;
 }
 
+export type ILeastPopularCharacter = {
+    [key: string]: string
+}
 export interface ICharacterContextType {
     characters: ICharacter[];
     fetchCharacters: () => Promise<void>;
     findLeastPopularCharacter: () => ICharacter | undefined;
+    getLeastPopularCharacter: () => ILeastPopularCharacter | undefined;
 }

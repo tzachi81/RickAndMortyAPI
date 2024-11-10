@@ -6,14 +6,14 @@ import Header from './components/Header/Header'
 import CharacterPopularityGraph from './components/CharacterPopularityGraph/CharacterPopularityGraph'
 
 const AppContent = () => {
-  const { characters, findLeastPopularCharacter } = useCharacterContext()
+  const { characters, getLeastPopularCharacter } = useCharacterContext()
 
   return (
     <div className={styles.appContent}>
       <Header />
       <div className={styles.mainContent}>
         <CharactersLoader />
-        <CharacterTable characters={characters} findLeastPopularCharacter={findLeastPopularCharacter} />
+        <CharacterTable characters={characters} getLeastPopularCharacter={getLeastPopularCharacter} />
         <CharacterPopularityGraph characters={characters} />
       </div>
     </div>
