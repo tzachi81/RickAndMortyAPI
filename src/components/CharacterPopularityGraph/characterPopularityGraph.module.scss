@@ -1,0 +1,60 @@
+.graphContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    color: white;
+    font-size: 18px;
+}
+
+//the actual chart
+.barGraph {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 70%;
+    padding: 7px;
+    background-color: rgba(65, 180, 201, 0.5);
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto 20px auto;
+}
+
+//single bar container (wrapper)
+.barContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    padding: 7px;
+    width: 100%;
+    z-index: 10;
+}
+
+.barItem {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column-reverse;
+    gap: 3px;
+    height: 250px;
+    align-content: center;
+}
+
+.bar {
+    display: flex;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-top: 7px;
+    justify-content: center;
+    justify-self: center;
+    width: 70%;
+}
+
+.popularityLabel{
+    display: flex;
+    justify-content: center;
+}
+
+.nameLabel {
+    display: flex;
+    justify-content: center;
+}

@@ -1,7 +1,30 @@
 .loader {
-    color: #e762D7ff;
+    display: flex;
+    justify-content: center;
 }
+
+.loaderContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.loaderHeader {
+    display: flex;
+    align-self: center;
+    font-size: 18px;
+    margin-right: 20px;
+
+    span {
+        color: white;
+        margin: 0 3px;
+        font-weight: bold;
+    }
+}
+
 .refreshButton {
+    display: flex;
     border-radius: 5px;
     background-color: #e762D7ff;
     cursor: pointer;

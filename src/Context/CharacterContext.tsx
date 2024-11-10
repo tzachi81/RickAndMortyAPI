@@ -4,15 +4,19 @@ import { ICharactersResponse } from './CharacterContextNetwork.types'
 
 const CharacterContext = createContext<ICharacterContextType | undefined>(undefined)
 
+// This context provider store the fetched data in the context object of ContextAPI
+// For future use by other components
+
 export const CharacterProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [characters, setCharacters] = useState<ICharacter[]>([])
 
   const fetchCharacters = async () => {
-    const url = 'https://rickandmortyapi.com/api/character'
+    const apiUrl = 'https://rickandmortyapi.com/api/character'
 
     let nextCharacters: string | any[] = []
-    let nextUrl: (string | null) = url // For convenient init of the starting endpoint
+    let nextUrl: (string | null) = apiUrl // For convenient init of the starting endpoint
 
+    // By default, this API returns 20 characters per page, so
     // I loop through the pages until I get nextsPage: null (no more next page of characters)
     // to get all the characters (826 counted in the original documentation. Ref: https://rickandmortyapi.com/documentation/#character)
 
@@ -54,7 +58,7 @@ export const CharacterProvider: FC<{ children: React.ReactNode }> = ({ children 
   }, [characters])
 
   useEffect(() => {
-    // When the provider mounts do:
+    // When the provider mounts, fetch
     fetchCharacters()
   }, [])
 
