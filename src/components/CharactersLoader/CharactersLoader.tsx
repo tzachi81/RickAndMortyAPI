@@ -16,23 +16,22 @@ const CharacterLoader: FC = () => {
 
   return (
     <>
-      {isLoading ? 
-      (
-        <ThemedLoader />
-      ) : 
-      (
-        // <div className={styles.loader}>
-        <div className={styles.loaderContent} hidden={isLoading}>
-          <p className={styles.loaderHeader}>
-            Found <span>{characters.length}</span> characters
-          </p>
-          <button className={styles.refreshButton} onClick={handleRefresh}>
-            Refresh
-          </button>
-        </div>
-        // </div>
-      )
-      }
+      {isLoading
+        ? (
+          <ThemedLoader />
+          )
+        : (
+      // <div className={styles.loader}>
+          <div className={styles.loaderContent} hidden={isLoading}>
+            <p className={styles.loaderHeader}>
+              Found <span>{characters.length}</span> characters
+            </p>
+            <button className={styles.refreshButton} onClick={handleRefresh}>
+              Refresh
+            </button>
+          </div>
+      // </div>
+          )}
     </>
   )
 }

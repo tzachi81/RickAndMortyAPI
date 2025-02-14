@@ -37,7 +37,7 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
           {},
         )
       }
-    }, [characters, targetCharactersList]);
+    }, [characters, targetCharactersList])
 
   const maxPopularityInCharacters = useMemo(() => {
     const popularitiesArray =
