@@ -19,7 +19,8 @@ export interface ICharacter {
 }
 
 export interface ICharacterContextType {
+    isLoading: boolean;
     characters: ICharacter[];
     fetchCharacters: () => Promise<void>;
-    findLeastPopularCharacter: () => ICharacter | undefined;
+    findLeastPopularCharacter: (locationName: string) => ICharacter | undefined;
 }

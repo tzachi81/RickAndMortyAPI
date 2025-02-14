@@ -1,33 +1,39 @@
-import { FC, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import styles from './characterLoader.module.scss'
 
 import { useCharacterContext } from '../../Context/CharacterContext'
+import { ThemedLoader } from '../ThemedLoader/ThemedLoader'
 
 // This logical component handles the fetching data from RickAndMorty API
 // And optionally triggers the fetching on user button click
 
 const CharacterLoader: FC = () => {
-  const { characters, fetchCharacters } = useCharacterContext()
-  const [isLoading, setIsLoading] = useState(false)
+  const { characters, fetchCharacters, isLoading } = useCharacterContext()
 
-  const handleRefresh = async () => {
-    setIsLoading(true)
-    await fetchCharacters()
-    setIsLoading(false)
-  }
+  const handleRefresh = useCallback(() => {
+    fetchCharacters()
+  }, [fetchCharacters])
 
   return (
-    <div className={styles.loader}>
-      {isLoading
-        ? (<p>Gettind Data...</p>)
-        : (
-          <div className={styles.loaderContent}>
-            <p className={styles.loaderHeader}>Found <span>{characters.length}</span> characters</p>
-            {/* Make it read from disk cache */}
-            <button className={styles.refreshButton} onClick={handleRefresh}>Refresh</button>
-          </div>
-          )}
-    </div>
+    <>
+      {isLoading ? 
+      (
+        <ThemedLoader />
+      ) : 
+      (
+        // <div className={styles.loader}>
+        <div className={styles.loaderContent} hidden={isLoading}>
+          <p className={styles.loaderHeader}>
+            Found <span>{characters.length}</span> characters
+          </p>
+          <button className={styles.refreshButton} onClick={handleRefresh}>
+            Refresh
+          </button>
+        </div>
+        // </div>
+      )
+      }
+    </>
   )
 }
 

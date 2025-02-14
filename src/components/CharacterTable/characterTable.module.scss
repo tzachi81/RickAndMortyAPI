@@ -4,12 +4,42 @@
     flex-direction: column;
 }
 
+.tableContainerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 22px;
+    h2{
+        line-height: 22px;
+        margin-right: 5px;
+    }
+    select{
+        height: 28px;
+        border-radius: 5px;
+        background-color: transparent;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        border: 2px solid rgba(250, 253, 124);
+        margin-top: 4px;
+        width: fit-content;
+        margin-right: 7px;
+        &focus {
+            border-color: green;
+        }
+        
+        option {
+            background-color: rgba(231, 98, 215, 0.7);
+        }
+    }
+}
+
 .table {
     justify-content: center;
     justify-self: center;
     margin: 0 auto 0px auto;
     display: flex;
-    background-color: rgba(231, 98, 215, 0.7);
+    background-color: rgba(105, 200, 236, 0.8);
     border: 2px solid #ccc;
     border-radius: 5px;
     border-collapse: collapse;
