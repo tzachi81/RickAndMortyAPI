@@ -91,6 +91,7 @@
 .detailCell {
   @extend .cell;
   flex: 1;
+  align-self: center;
 }
 
 @media screen and (max-width: 860px) {
