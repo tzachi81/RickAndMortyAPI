@@ -1,10 +1,11 @@
 import classes from './ThemedLoader.module.scss'
 
-interface IThemedLoaderProps{}
+interface IThemedLoaderProps {}
 
 export const ThemedLoader: React.FC<IThemedLoaderProps> = () => {
   return (
     <>
+      <div>Squanching...</div>
       <div className={classes.container}>
         <div className={classes.rickContainer}>
           <div className={classes.headContainer}>
@@ -84,7 +85,6 @@ export const ThemedLoader: React.FC<IThemedLoaderProps> = () => {
           </div>
         </div>
       </div>
-
     </>
   )
 }

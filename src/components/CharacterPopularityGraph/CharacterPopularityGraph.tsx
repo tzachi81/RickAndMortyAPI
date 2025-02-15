@@ -6,44 +6,16 @@ import { useCharacterContext } from '@/Context/CharacterContext'
 interface ICharacterPopularityGraphProps {}
 
 const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
-  interface ICharacterPopularity {
-    [key: string]: number;
+  interface ISelectedCharacter {
+    name: string;
+    image: string;
+    popularity: number;
+  }
+  interface ISelectedCharacters {
+    [name: string]: ISelectedCharacter;
   }
 
-  const targetCharactersList = [
-    'Abradolf Lincler',
-    'Arcade Alien',
-    'Morty Smith',
-    'Birdperson',
-    'Mr. Meeseeks',
-  ]
 
-  const { characters } = useCharacterContext()
-
-  const popularitiesByCharacterName: ICharacterPopularity | undefined =
-    useMemo(() => {
-      if (characters.length > 0) {
-        return characters.reduce<ICharacterPopularity>(
-          (popularitiesObject: ICharacterPopularity, character: ICharacter) => {
-            if (targetCharactersList.includes(character.name)) {
-              if (!popularitiesObject[character.name]) {
-                popularitiesObject[character.name] = 0 // initialize new prop;
-              }
-              popularitiesObject[character.name] += character.episode.length
-            }
-
-            return popularitiesObject
-          },
-          {},
-        )
-      }
-    }, [characters, targetCharactersList])
-
-  const maxPopularityInCharacters = useMemo(() => {
-    const popularitiesArray =
-      popularitiesByCharacterName && Object.values(popularitiesByCharacterName)
-    return popularitiesArray && Math.max(...popularitiesArray)
-  }, [popularitiesByCharacterName])
 
   // debatable color pallete...
   const barColors = [
@@ -53,6 +25,50 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
     '#69c8ecff',
     '#fafd7cff',
   ]
+
+  const { characters } = useCharacterContext()
+
+  const popularitiesByCharacterName: ISelectedCharacters | undefined =
+    useMemo(() => {
+      
+      const targetCharactersList = [
+        'Abradolf Lincler',
+        'Arcade Alien',
+        'Morty Smith',
+        'Birdperson',
+        'Mr. Meeseeks',
+      ];
+
+      if (characters.length > 0) {
+        return characters.reduce<ISelectedCharacters>(
+          (popularitiesObject: ISelectedCharacters, character: ICharacter) => {
+            if (targetCharactersList.includes(character.name)) {
+              if (!popularitiesObject[character.name]) {
+                popularitiesObject[character.name] = {
+                  name: character.name,
+                  image: character.image,
+                  popularity: 1,
+                }
+              }
+              popularitiesObject[character.name].popularity +=
+                character.episode.length
+            }
+
+            return popularitiesObject
+          },
+          {},
+        )
+      }
+    }, [characters])
+
+  const maxPopularityInCharacters: number | undefined = useMemo(() => {
+    if (popularitiesByCharacterName) {
+      const popularitiesArray = Object.keys(popularitiesByCharacterName).map(
+        (name) => popularitiesByCharacterName[name].popularity,
+      )
+      return popularitiesArray && Math.max(...popularitiesArray)
+    }
+  }, [popularitiesByCharacterName])
 
   // I have taken inspiration for this bar chart from
   // 'https://www.js-craft.io/blog/css-flexbox-bar-chart/'
@@ -68,35 +84,39 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
             </h2>
 
             <div className={styles.barGraph}>
-              {targetCharactersList.map((characterName, index) => {
-                // calculates the height of each bar element (by popularity)
-                const color = barColors[index]
-                const popularity = popularitiesByCharacterName[characterName]
-                const barItemHeight = Math.floor(
-                  (popularity / maxPopularityInCharacters) * 100,
-                )
-                return (
-                  <div className={styles.barContainer} key={`${characterName}`}>
-                    <div className={styles.tickLinesContainer} />
-                    <div className={styles.barItem}>
-                      <dt className={styles.nameLabel}>{characterName}</dt>
+              {
+                Object.keys(popularitiesByCharacterName).map((character, index) => {
+                  const { name, image, popularity } = popularitiesByCharacterName[character]
+                  const color = barColors[index]
+                  const barItemHeight = Math.floor(
+                    (popularity / maxPopularityInCharacters) * 100,
+                  )
+                  return (
+                    <div className={styles.barContainer} key={`${name}`}>
+                      <div className={styles.tickLinesContainer} />
+                      <div className={styles.barItem}>
+                        <dt className={styles.nameLabel}>
+                          <img src={image} alt={name} />
+                          <p>{name}</p>
+                        </dt>
 
-                      <div
-                        className={styles.bar}
-                        style={{
-                          height: `${barItemHeight}px`,
-                          backgroundColor: `${color}`,
-                        }}
-                      />
-                      <dd />
+                        <div
+                          className={styles.bar}
+                          style={{
+                            height: `${barItemHeight}px`,
+                            backgroundColor: `${color}`,
+                          }}
+                        />
+                        <dd />
 
-                      <span className={styles.popularityLabel}>
-                        {popularity}
-                      </span>
+                        <span className={styles.popularityLabel}>
+                          <p>{popularity}</p>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })
+              }
             </div>
           </div>
       )}

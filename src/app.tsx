@@ -11,8 +11,6 @@ const AppContent = () => {
       <Header />
       <div className={styles.mainContent}>
         <CharactersLoader />
-        <CharacterTable />
-        <CharacterPopularityGraph />
       </div>
     </div>
   )

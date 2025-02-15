@@ -80,7 +80,6 @@ export const CharacterProvider: FC<{ children: React.ReactNode }> = ({
   )
 
   useEffect(() => {
-    // When the provider mounts, fetch
     setIsLoading(true)
     fetchCharacters().finally(() => setIsLoading(false))
   }, [])

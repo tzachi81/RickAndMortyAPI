@@ -71,6 +71,7 @@ const CharacterTable: FC<CharacterTableProps> = () => {
       .replace(/([A-Z])/g, ' $1')
       .trim()
       .replace(/^./, (char) => char.toUpperCase())
+      .concat(key === 'popularity' ? ' (appearances)' : '')
 
   if (characters.length === 0) {
     return <p>No character data available. Try to refresh the page.</p>
