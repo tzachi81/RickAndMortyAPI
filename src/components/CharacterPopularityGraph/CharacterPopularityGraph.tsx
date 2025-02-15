@@ -16,14 +16,14 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
   }
 
   // debatable color pallete...
-  //TODO merge barcolors and targetCharactersList into one object
+  // TODO merge barcolors and targetCharactersList into one object
   const barColors = [
     '#bae8d9',
     '#fb6467ff',
     '#e762d7ff',
     '#69c8ecff',
     '#fafd7cff',
-    '#C0DDBE'
+    '#C0DDBE',
   ]
 
   const { characters } = useCharacterContext()
@@ -36,7 +36,7 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
         'Birdperson',
         'Mr. Meeseeks',
         'Rick Sanchez',
-        'Summer Smith'
+        'Summer Smith',
       ]
 
       if (characters.length > 0) {
