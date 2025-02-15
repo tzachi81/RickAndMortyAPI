@@ -15,8 +15,6 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
     [name: string]: ISelectedCharacter;
   }
 
-
-
   // debatable color pallete...
   const barColors = [
     '#97c34c',
@@ -30,14 +28,13 @@ const CharacterPopularityGraph: FC<ICharacterPopularityGraphProps> = () => {
 
   const popularitiesByCharacterName: ISelectedCharacters | undefined =
     useMemo(() => {
-      
       const targetCharactersList = [
         'Abradolf Lincler',
         'Arcade Alien',
         'Morty Smith',
         'Birdperson',
         'Mr. Meeseeks',
-      ];
+      ]
 
       if (characters.length > 0) {
         return characters.reduce<ISelectedCharacters>(
